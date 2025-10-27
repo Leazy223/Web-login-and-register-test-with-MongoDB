@@ -1,0 +1,42 @@
+<h1>Product categories</h1>
+<p>Welcome to {{title}} product categories</p>
+
+{{#if (eq role "admin")}}
+<div class="row">
+    <div class="col s12">
+        <a class="btn blue" href="/categories/add">Create New Category</a>
+    </div>
+</div>
+{{/if}}
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if categories.length}}
+      {{#each categories}}
+        <tr>
+          <td>{{@index}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.description}}</td>
+          <td>
+            {{#if ../role}}
+              {{#if (eq ../role "admin")}}
+                <a href="/categories/edit/{{this._id}}" class="btn-small blue">Edit</a>
+                <a href="/categories/delete/{{this._id}}" class="btn-small red" onclick="return confirm('Delete this category?')">Delete</a>
+              {{/if}}
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    {{else}}
+      <tr><td colspan="3">No categories found</td></tr>
+    {{/if}}
+  </tbody>
+</table>

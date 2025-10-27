@@ -1,0 +1,12 @@
+<h1>Create Category</h1>
+
+<form action="/categories/add" method="post">
+  <label for="name">Name</label><br />
+  <input id="name" name="name" placeholder="Enter product's name here..." minlength="3" maxlength="50"/><br /><br />
+
+  <label for="description">Description</label><br />
+  <input id="description" name="description" placeholder="Enter product's description here..." minlength="10" maxlength="200"/><br /><br />
+
+  <button type="submit">Create</button>
+  <a href="/categories">Cancel</a>
+</form>

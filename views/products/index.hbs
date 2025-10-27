@@ -1,0 +1,84 @@
+<h1>Products</h1>
+
+{{#if (eq role "admin")}}
+<div class="row">
+    <div class="col s12 m6">
+        <a class="btn blue waves-effect waves-light" href="/products/add">
+            <i class="material-icons left">add</i>
+            Create New Product
+        </a>
+    </div>
+</div>
+{{/if}}
+
+<div class="row">
+    <div class="col s12">
+        <form action="/products" method="GET">
+            <div class="row">
+                <div class="input-field col s4">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="search" name="search" value="{{searchQuery}}">
+                    <label for="search">Search by product name</label>
+                </div>
+                <div class="input-field col s3">
+                    <select name="sortBy" id="sortBy">
+                        <option value="" disabled>Choose sort field</option>
+                        <option value="name" {{#if isSortByName}}selected{{/if}}>Name</option>
+                        <option value="price" {{#if isSortByPrice}}selected{{/if}}>Price</option>
+                    </select>
+                    <label>Sort By</label>
+                </div>
+                <div class="input-field col s3">
+                    <select name="order" id="order">
+                        <option value="" disabled>Choose order</option>
+                        <option value="asc" {{#if isAscending}}selected{{/if}}>Ascending</option>
+                        <option value="desc" {{#if isDescending}}selected{{/if}}>Descending</option>
+                    </select>
+                    <label>Order</label>
+                </div>
+                <div class="input-field col s2">
+                    <button class="btn waves-effect waves-light" type="submit">
+                        Filter
+                        <i class="material-icons right">filter_list</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Image</th>
+      <th>Category</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#if products.length}}
+      {{#each products}}
+        <tr>
+          <td>{{@index}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.price}}</td>
+          <td><img src="{{this.image}}" alt="{{this.name}}" width="100" /></td>
+          <td>{{this.category}}</td>
+          <td>
+            {{#if ../role}}
+              {{#if (eq ../role "admin")}}
+                <a href="/products/edit/{{this._id}}" class="btn-small blue">Edit</a>
+                <a href="/products/delete/{{this._id}}" class="btn-small red" onclick="return confirm('Delete this product?')">Delete</a>
+              {{/if}}
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    {{else}}
+      <tr><td colspan="5">No products found</td></tr>
+    {{/if}}
+  </tbody>
+</table>
