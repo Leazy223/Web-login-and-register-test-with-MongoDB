@@ -64,9 +64,25 @@
         <tr>
           <td>{{@index}}</td>
           <td>{{this.name}}</td>
-          <td>{{this.price}}</td>
-          <td><img src="{{this.image}}" alt="{{this.name}}" width="100" /></td>
-          <td>{{this.category}}</td>
+          <td>{{this.price}}$</td>
+          <td>
+            {{#if this.image}}
+              <img src="{{#if this.imagePath}}{{this.imagePath}}{{else}}/images/{{this.image}}{{/if}}" alt="{{this.name}}" title="{{#if this.imagePath}}{{this.imagePath}}{{else}}/images/{{this.image}}{{/if}}" width="100" onerror="this.onerror=null;this.src='https://via.placeholder.com/100x100?text=No+Image'" />
+            {{else}}
+              <img src="https://via.placeholder.com/100x100?text=No+Image" alt="no-image" width="100" />
+            {{/if}}
+          </td>
+          <td>
+            {{#if this.category}}
+              {{#if this.category.name}}
+                {{this.category.name}}
+              {{else}}
+                {{this.category}}
+              {{/if}}
+            {{else}}
+              -
+            {{/if}}
+          </td>
           <td>
             {{#if ../role}}
               {{#if (eq ../role "admin")}}
